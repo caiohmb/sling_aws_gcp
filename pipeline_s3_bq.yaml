@@ -1,0 +1,15 @@
+source: AWS_S3
+target: GCP_BIGQUERY
+
+defaults:
+  mode: full-refresh
+  object: 'dataproject.{stream_file_name}'
+  columns:
+    '*': string # cast all columns as string
+  source_options:
+    format: csv
+
+streams:
+  # no need to specify scheme://bucket
+  "raw/data/*.csv":          # individual streams for each file
+    single: true
